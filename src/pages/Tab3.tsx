@@ -1,9 +1,11 @@
-import { IonCard, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent } from '@ionic/react';
+import { IonCard, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent, useIonRouter } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import './Tab3.css';
 import { usePosts } from "./graph-ql-request";
 import { useEffect, useRef, useState } from "react";
 import useOnScreen from "./useOnScreen";
+import PostCard from "./PostCard";
+import Loading from "./loading";
 
 const Tab3: React.FC = () => {
 
@@ -12,11 +14,17 @@ const Tab3: React.FC = () => {
 
 
   const {data, isLoading, error} = usePosts({queryKey: {page: page, limit: limit}})
-  console.log(data);
 
   const lastElementRef = useRef(null)
 
   const isOnScreen = useOnScreen(lastElementRef);
+
+
+  const router = useIonRouter();
+  const navigateToPost = (id: string) => {
+    console.log(id);
+    router.push(`/post/${id}`)
+  }
 
 
   return (
@@ -29,25 +37,15 @@ const Tab3: React.FC = () => {
       <IonContent fullscreen>
         <IonHeader collapse="condense">
           <IonToolbar>
-            <IonTitle data-testid="my-test"  size="large">Tab 3</IonTitle>
+            <IonTitle data-testid="my-test" size="large">Tab 3</IonTitle>
           </IonToolbar>
         </IonHeader>
 
         <div>
-          {isLoading ? <p> is loading</p> : data?.map((d: any) => (
-            <div key={d.id}>
-              <IonCard>
-                <IonCardHeader>
-                  <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
-                  <IonCardTitle> {d.title} </IonCardTitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  Keep close to Nature's heart... and break clear away, once in awhile,
-                  and climb a mountain or spend a week in the woods. Wash your spirit clean.
-                </IonCardContent>
-              </IonCard>
+          {isLoading ? <Loading/> : data?.map((d: any) => (
+            <div onClick={() => navigateToPost(d.id)} key={d.id}>
+              <PostCard post={d}/>
             </div>
-
           ))}
           <div ref={lastElementRef}></div>
         </div>

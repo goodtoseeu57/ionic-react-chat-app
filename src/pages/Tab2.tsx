@@ -1,4 +1,4 @@
-import { IonContent, IonItem, IonHeader, IonNavLink, IonPage, IonTitle, IonToolbar, IonSelect, IonSelectOption, IonLabel } from '@ionic/react';
+import { IonContent, IonItem, IonHeader, IonFooter, IonNavLink, IonPage, IonTitle, IonToolbar, IonSelect, IonSelectOption, IonLabel, IonSearchbar } from '@ionic/react';
 import './Tab2.css';
 import { useState } from "react";
 
@@ -6,12 +6,17 @@ import { useState } from "react";
 const Tab2: React.FC = () => {
 
   const [category, setCategory] = useState('Apples')
+  const [searchText, setSearchText] = useState('')
+
 
   return (
     <IonPage>
       <IonHeader>
+
         <IonToolbar>
-          <IonTitle>Tab 21</IonTitle>
+          <IonSearchbar className="ion-search-bar" value={searchText} onIonFocus={() => console.log('focused')} onIonBlur={() => console.log('blured')}
+                        onIonChange={e => setSearchText(e.detail.value!)}
+                        debounce={1000}></IonSearchbar>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
@@ -31,9 +36,15 @@ const Tab2: React.FC = () => {
 
         <IonItem>
           your category is {category}
+          your search text is {searchText}
         </IonItem>
 
       </IonContent>
+      <IonFooter>
+        <IonToolbar>
+          Search Text: {searchText ?? '(none)'}
+        </IonToolbar>
+      </IonFooter>
     </IonPage>
   );
 };

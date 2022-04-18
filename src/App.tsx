@@ -14,6 +14,7 @@ import { ellipse, square, triangle } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
+import Post from './pages/post'
 import SelectMode from './pages/SelectMode';
 
 /* Core CSS required for Ionic components to work properly */
@@ -57,6 +58,7 @@ const App: React.FC = () => (
             <Route exact path="/">
               <Redirect to="/tab2"/>
             </Route>
+            <Route exact path="/post/:id" component={Post}/>
           </Switch>
         </IonRouterOutlet>
         <IonTabBar slot="bottom">
