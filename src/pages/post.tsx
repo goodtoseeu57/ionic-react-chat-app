@@ -1,16 +1,27 @@
+import { IonBackButton, IonButtons, IonHeader, IonIcon, IonToolbar } from '@ionic/react';
 import React from 'react';
 import { useParams } from 'react-router'
 import { usePost } from "./graph-ql-request";
+import Loading from './loading';
 import PostCard from "./PostCard";
 
 const Post = () => {
+  const { id } = useParams<{ id: string }>();
+  const { data, isLoading, error } = usePost({ queryKey: { postId: id } })
 
-  const {id} = useParams<{ id: string }>();
-  const {data, isLoading, error} = usePost({queryKey: {postId: id}})
-  console.log(data)
-
-  return (<div>
-      {isLoading ? <p> is loading</p> : <PostCard post={data}/>}
+  return (
+    <div>
+      {isLoading ? <Loading /> :
+        <>
+          <IonHeader>
+            <IonToolbar>
+              <IonButtons slot="start">
+                <IonBackButton />
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <PostCard post={data} />
+        </>}
     </div>
   )
 }

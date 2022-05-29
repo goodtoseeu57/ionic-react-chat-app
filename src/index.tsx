@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, createContext } from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
@@ -7,11 +7,23 @@ import { QueryClientProvider, QueryClient } from "react-query";
 
 const queryClient = new QueryClient();
 
+const blackTheme = {
+  color: 'black'
+}
+
+export const ThemeContext = createContext(blackTheme);
+
+const whiteTheme = {
+  color: 'white'
+}
+
 ReactDOM.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <App/>
-    </QueryClientProvider>
+    <ThemeContext.Provider value={blackTheme}>
+      <QueryClientProvider client={queryClient}>
+        <App />
+      </QueryClientProvider>
+    </ThemeContext.Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );

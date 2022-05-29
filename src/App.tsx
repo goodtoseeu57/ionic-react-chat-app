@@ -35,6 +35,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Dates from './pages/Dates';
 
 setupIonicReact();
 
@@ -51,6 +52,7 @@ const App: React.FC = () => (
               <Tab1 name='Dashboard'/>
             </Route>
             <Route exact path="/tab2" component={Tab2}/>
+            <Route exact path="/dates" component={Dates} />
             <Route path="/tab2/landing" component={SelectMode}/>
             <Route path="/tab3">
               <Tab3/>
@@ -73,6 +75,10 @@ const App: React.FC = () => (
           <IonTabButton tab="tab3" href="/tab3">
             <IonIcon icon={square}/>
             <IonLabel>Tab 3</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="dates" href="/dates">
+            <IonIcon icon={square}/>
+            <IonLabel>Tab 4</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
