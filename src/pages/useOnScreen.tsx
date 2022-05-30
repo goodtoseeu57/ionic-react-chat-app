@@ -1,6 +1,5 @@
 import { RefObject, useEffect, useRef, useState } from "react";
 
-
 const useOnScreen = (ref: RefObject<HTMLElement | null>) => {
   const [isOnScreen, setIsOnScreen] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null)

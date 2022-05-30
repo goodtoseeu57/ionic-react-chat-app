@@ -1,7 +1,20 @@
-import { IonList, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonItem, IonLabel, IonCheckbox, IonButtons, IonIcon } from '@ionic/react';
+import {
+  IonList,
+  IonContent,
+  IonHeader,
+  IonPage,
+  IonTitle,
+  IonToolbar,
+  IonItem,
+  IonLabel,
+  IonCheckbox,
+  IonButtons,
+  IonIcon,
+  IonFabButton, IonFab, IonFabList, IonButton
+} from '@ionic/react';
 import './Tab1.css';
 import { useState } from "react";
-import { accessibility, ellipse, square, star, starOutline, triangle } from 'ionicons/icons';
+import {accessibility, add, ellipse, square, star, starOutline, triangle} from 'ionicons/icons';
 import Counter from '../experiments/reducer';
 import Card from './generalCard';
 import Review from './starreview';
@@ -37,21 +50,20 @@ const Tab1: React.FC<ContainerProps> = ({ name }) => {
 
   return (
     <>
-
-
-
       <IonPage style={{ "--ion-background-color": background }}>
-        {JSON.stringify(locationData)}
-
-
-
+         <IonFab vertical="bottom" horizontal="start">
+          <IonFabButton>
+            <IonIcon icon={add} />
+          </IonFabButton>
+           <IonFabList side={'top'}>
+             <IonButton>New project</IonButton>
+           </IonFabList>
+        </IonFab>
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
               <IonIcon icon={accessibility} onClick={() => background === 'black' ? setBackground('white') : setBackground('black')}></IonIcon>
             </IonButtons>
-
-
             <IonButtons slot="end">
               <IonIcon icon={ellipse} onClick={() => background === 'black' ? setBackground('white') : setBackground('black')}></IonIcon>
             </IonButtons>
