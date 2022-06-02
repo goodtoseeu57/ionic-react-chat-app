@@ -1,4 +1,4 @@
-import { Redirect, Route, Switch } from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import {
   IonApp,
   IonIcon,
@@ -9,8 +9,8 @@ import {
   IonTabs,
   setupIonicReact
 } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, triangle } from 'ionicons/icons';
+import {IonReactRouter} from '@ionic/react-router';
+import {ellipse, square, triangle} from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
@@ -35,55 +35,53 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import Dates from './pages/Dates';
 
 setupIonicReact();
 
 const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <Route exact path="/tabs">
-        <SelectMode/>
-      </Route>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Switch>
-            <Route exact path="/tab1">
-              <Tab1 name='Dashboard'/>
+    <IonApp>
+        <IonReactRouter>
+            <Route exact path="/tabs">
+                <SelectMode/>
             </Route>
-            <Route exact path="/tab2" component={Tab2}/>
-            <Route exact path="/dates" component={Dates} />
-            <Route path="/tab2/landing" component={SelectMode}/>
-            <Route path="/tab3">
-              <Tab3/>
-            </Route>
-            <Route exact path="/">
-              <Redirect to="/tab2"/>
-            </Route>
-            <Route exact path="/post/:id" component={Post}/>
-          </Switch>
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="tab1" href="/tab1">
-            <IonIcon icon={triangle}/>
-            <IonLabel>Tab 1</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab2" href="/tab2">
-            <IonIcon icon={ellipse}/>
-            <IonLabel>Tab 2</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="tab3" href="/tab3">
-            <IonIcon icon={square}/>
-            <IonLabel>Tab 3</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="dates" href="/dates">
-            <IonIcon icon={square}/>
-            <IonLabel>Tab 4</IonLabel>
-          </IonTabButton>
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
+            <IonTabs>
+                <IonRouterOutlet>
+                    <Switch>
+                        <Route exact path="/tab1">
+                            <Tab1 name='Dashboard'/>
+                        </Route>
+                        <Route exact path="/tab2" component={Tab2}/>
+                        <Route path="/tab2/landing" component={SelectMode}/>
+                        <Route path="/tab3">
+                            <Tab3/>
+                        </Route>
+                        <Route exact path="/">
+                            <Redirect to="/tab2"/>
+                        </Route>
+                        <Route exact path="/post/:id" component={Post}/>
+                    </Switch>
+                </IonRouterOutlet>
+                <IonTabBar slot="bottom">
+                    <IonTabButton tab="tab1" href="/tab1">
+                        <IonIcon icon={triangle}/>
+                        <IonLabel>Tab 1</IonLabel>
+                    </IonTabButton>
+                    <IonTabButton tab="tab2" href="/tab2">
+                        <IonIcon icon={ellipse}/>
+                        <IonLabel>Tab 2</IonLabel>
+                    </IonTabButton>
+                    <IonTabButton tab="tab3" href="/tab3">
+                        <IonIcon icon={square}/>
+                        <IonLabel>Tab 3</IonLabel>
+                    </IonTabButton>
+                    <IonTabButton tab="dates" href="/dates">
+                        <IonIcon icon={square}/>
+                        <IonLabel>Tab 4</IonLabel>
+                    </IonTabButton>
+                </IonTabBar>
+            </IonTabs>
+        </IonReactRouter>
+    </IonApp>
 );
 
 export default App;
