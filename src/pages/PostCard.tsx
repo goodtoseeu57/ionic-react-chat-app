@@ -1,17 +1,17 @@
 import React, {useState} from 'react'
 import {
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonIcon,
-  IonItem,
-  IonModal,
-  useIonRouter
+    IonButton,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonIcon,
+    IonItem,
+    IonModal,
+    useIonRouter
 } from "@ionic/react";
-import {createOutline} from 'ionicons/icons';
+import {createOutline, trashBin} from 'ionicons/icons';
 import EditModal from './edit-modal';
 
 
@@ -38,18 +38,17 @@ const PostCard: React.FC<Props> = ({post}) => {
         <>
             <IonCard>
                 <IonCardHeader>
-                    <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+                    <IonItem lines={'none'} className={'ion-no-padding'}>
+                        <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+                        <IonIcon slot={'end'} color='danger' icon={trashBin}></IonIcon>
+                    </IonItem>
                     <IonCardTitle> {post.title} </IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent>
-                    {post?.body ??
-                        `Keep close to Nature's heart... and break clear away, once in awhile,
-          and climb a mountain or spend a week in the woods. Wash your spirit clean.`
-                    }
-                    <IonItem>
-                        <IonIcon icon={createOutline} onClick={() => setOpenModal(true)}> </IonIcon>
-                        <IonIcon color='danger' icon={createOutline}>Delete</IonIcon>
-                        <IonButton onClick={() => navigateToPost(post.id)}> Read more </IonButton>
+                    {post?.body}
+                    <IonItem lines={'none'} className={'ion-no-padding'}>
+                        <IonIcon slot={'start'} icon={createOutline} onClick={() => setOpenModal(true)}> </IonIcon>
+                        <IonButton slot={'end'} onClick={() => navigateToPost(post.id)}> Read more </IonButton>
                     </IonItem>
                 </IonCardContent>
             </IonCard>

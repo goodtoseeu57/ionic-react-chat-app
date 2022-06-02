@@ -1,29 +1,35 @@
-import { IonBackButton, IonButtons, IonHeader, IonIcon, IonToolbar } from '@ionic/react';
+import {IonButton, IonButtons, IonIcon, IonToolbar, useIonRouter} from '@ionic/react';
 import React from 'react';
-import { useParams } from 'react-router'
-import { usePost } from "./graph-ql-request";
+import {useParams} from 'react-router'
+import {usePost} from "./graph-ql-request";
 import Loading from './loading';
 import PostCard from "./PostCard";
+import {arrowBack} from 'ionicons/icons';
+
 
 const Post = () => {
-  const { id } = useParams<{ id: string }>();
-  const { data, isLoading, error } = usePost({ queryKey: { postId: id } })
+    const {id} = useParams<{ id: string }>();
+    const {data, isLoading, error} = usePost({queryKey: {postId: id}})
 
-  return (
-    <div>
-      {isLoading ? <Loading /> :
-        <>
-          <IonHeader>
-            <IonToolbar>
-              <IonButtons slot="start">
-                <IonBackButton />
-              </IonButtons>
-            </IonToolbar>
-          </IonHeader>
-          <PostCard post={data} />
-        </>}
-    </div>
-  )
+    const router = useIonRouter()
+
+    const goBack = () => router.goBack()
+
+    return (
+        <div>
+            {isLoading ? <Loading/> :
+                <>
+                    <IonToolbar>
+                        <IonButtons slot="start">
+                            <IonButton onClick={goBack}>
+                                <IonIcon slot="icon-only" ios={arrowBack} md={arrowBack}/>
+                            </IonButton>
+                        </IonButtons>
+                    </IonToolbar>
+                    <PostCard post={data}/>
+                </>}
+        </div>
+    )
 }
 
 export default Post

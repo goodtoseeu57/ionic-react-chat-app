@@ -15,6 +15,7 @@ export const usePosts = (params: { queryKey: { page: number, limit: number } }) 
                     data {
                         id
                         title
+                        body
                     }
                 }
             }
@@ -55,7 +56,7 @@ export interface CreatePostInput {
     body: string
 }
 
-export const useCreatePost = (title: string, body: string) => {
+export const useCreatePost = () => {
     return useMutation(async (title: any) => {
             const variables = {
                 input: {
