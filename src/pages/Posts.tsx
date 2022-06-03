@@ -13,7 +13,6 @@ import {
     IonToolbar,
     useIonRouter
 } from '@ionic/react';
-import './Tab3.css';
 import {useCreatePost, usePosts} from "./graph-ql-request";
 import {useRef, useState} from "react";
 import useOnScreen from "./useOnScreen";
@@ -62,27 +61,17 @@ const Posts: React.FC = () => {
                     <IonIcon icon={add}/>
                 </IonFabButton>
                 <IonFabList side={'start'}>
-                    <IonButton onClick={() => mutation.mutateAsync('titleexample')}>
+                    <IonButton onClick={() => mutation.mutateAsync('title-example')}>
                         {mutation.isLoading ? 'is Loading' : 'Create'}
                     </IonButton>
                 </IonFabList>
             </IonFab>
             <IonContent fullscreen>
-
                 <IonHeader collapse="condense">
                     <IonToolbar>
-                        <IonTitle data-testid="my-test" size="large">Tab 3</IonTitle>
+                        <IonTitle data-testid="my-test" size="large">Posts</IonTitle>
                     </IonToolbar>
                 </IonHeader>
-
-                {/*<IonButton onClick={() => setShowModal(true)}> Create project </IonButton>*/}
-
-                {/*<IonButton onClick={() => mutation.mutateAsync('t')}>*/}
-                {/*    {mutation.isLoading ? 'is Loading' : 'Create'}*/}
-                {/*</IonButton>*/}
-
-                {/*<IonButton> {mutation.isSuccess ? 'Successfully creation' : 'Not yet'} </IonButton>*/}
-
                 <IonToast isOpen={mutation.isSuccess}
                           message="Click to Close"
                           icon={informationCircle}
@@ -119,6 +108,5 @@ const Posts: React.FC = () => {
         </IonPage>
     );
 };
-
 
 export default Posts;

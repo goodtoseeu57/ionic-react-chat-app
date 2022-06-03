@@ -9,6 +9,7 @@ import {
     IonIcon,
     IonItem,
     IonModal,
+    useIonAlert,
     useIonRouter
 } from "@ionic/react";
 import {createOutline, trashBin} from 'ionicons/icons';
@@ -28,11 +29,25 @@ type Props = {
 
 const PostCard: React.FC<Props> = ({post}) => {
 
+    const [present] = useIonAlert();
+
     const [isOpenModal, setOpenModal] = useState(false);
     const router = useIonRouter();
     const navigateToPost = (id: string) => {
         router.push(`/post/${id}`, 'forward')
     }
+
+    const showDeletePostAlert = (id: string) => {
+        return present({
+            header: 'Are you sure do you want to delete this post?',
+            buttons: [
+                'Cancel',
+                {text: 'Ok', handler: (d) => console.log('ok pressed')},
+            ],
+            onDidDismiss: (e) => console.log('did dismiss'),
+        })
+    }
+
 
     return (
         <>
@@ -40,7 +55,8 @@ const PostCard: React.FC<Props> = ({post}) => {
                 <IonCardHeader>
                     <IonItem lines={'none'} className={'ion-no-padding'}>
                         <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
-                        <IonIcon slot={'end'} color='danger' icon={trashBin}></IonIcon>
+                        <IonIcon slot={'end'} color='danger' icon={trashBin}
+                                 onClick={() => showDeletePostAlert(post.id)}></IonIcon>
                     </IonItem>
                     <IonCardTitle> {post.title} </IonCardTitle>
                 </IonCardHeader>
@@ -58,9 +74,7 @@ const PostCard: React.FC<Props> = ({post}) => {
                 initialBreakpoint={0.5}
                 breakpoints={[0, 0.5, 1]}
                 onDidDismiss={() => setOpenModal(false)}>
-                <IonItem>
-                    <EditModal {...post} />
-                </IonItem>
+                <EditModal {...post} />
             </IonModal>
         </>
     )
