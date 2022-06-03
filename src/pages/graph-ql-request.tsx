@@ -15,6 +15,7 @@ export const usePosts = (params: { queryKey: { page: number, limit: number } }) 
                     data {
                         id
                         title
+                        body
                     }
                 }
             }
@@ -55,7 +56,7 @@ export interface CreatePostInput {
     body: string
 }
 
-export const useCreatePost = (title: string, body: string) => {
+export const useCreatePost = () => {
     return useMutation(async (title: any) => {
             const variables = {
                 input: {
@@ -75,6 +76,32 @@ export const useCreatePost = (title: string, body: string) => {
         },
     )
 }
+
+export const useDeletePost = () => {
+    return useMutation(async (id: any) => {
+            const variables = {
+                id: id
+            };
+            const {deletePost} = await request(endpoint,
+                DELETE_POST, variables
+            )
+            console.log(deletePost)
+            return deletePost;
+        },
+        {
+            onSuccess: () => console.log(`successfully`),
+            onError: () => console.log('err'),
+        },
+    )
+}
+
+const DELETE_POST = gql`
+        mutation (
+          $id: ID!
+        ) {
+          deletePost(id: $id)
+        }
+`;
 
 
 const CREATE_POST = gql`

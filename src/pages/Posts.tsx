@@ -1,7 +1,11 @@
 import {
     IonButton,
     IonContent,
+    IonFab,
+    IonFabButton,
+    IonFabList,
     IonHeader,
+    IonIcon,
     IonModal,
     IonPage,
     IonTitle,
@@ -9,16 +13,15 @@ import {
     IonToolbar,
     useIonRouter
 } from '@ionic/react';
-import './Tab3.css';
 import {useCreatePost, usePosts} from "./graph-ql-request";
 import {useRef, useState} from "react";
 import useOnScreen from "./useOnScreen";
 import PostCard from "./PostCard";
 import Loading from "./loading";
 import Modal from './modal';
-import {informationCircle} from 'ionicons/icons';
+import {add, informationCircle} from 'ionicons/icons';
 
-const Tab3: React.FC = () => {
+const Posts: React.FC = () => {
 
     const [page, setPage] = useState(1)
     const [limit, setLimit] = useState(10)
@@ -44,33 +47,33 @@ const Tab3: React.FC = () => {
         setShowModal(true);
     }
 
+    const triggerMutation = () => mutation.mutateAsync('title-example');
 
-    const mutation = useCreatePost('ds', '');
-
-    const variables = {title: 'f', body: 'h'}
+    const mutation = useCreatePost();
 
     return (
         <IonPage>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle>Tab 3</IonTitle>
+                    <IonTitle>Posts</IonTitle>
                 </IonToolbar>
             </IonHeader>
+            <IonFab vertical="bottom" horizontal="end">
+                <IonFabButton>
+                    <IonIcon icon={add}/>
+                </IonFabButton>
+                <IonFabList side={'start'}>
+                    <IonButton onClick={() => setShowModal(true)}>
+                        {mutation.isLoading ? 'is Loading' : 'Create'}
+                    </IonButton>
+                </IonFabList>
+            </IonFab>
             <IonContent fullscreen>
                 <IonHeader collapse="condense">
                     <IonToolbar>
-                        <IonTitle data-testid="my-test" size="large">Tab 3</IonTitle>
+                        <IonTitle data-testid="my-test" size="large">Posts</IonTitle>
                     </IonToolbar>
                 </IonHeader>
-
-                <IonButton onClick={() => setShowModal(true)}> Create project </IonButton>
-
-                <IonButton onClick={() => mutation.mutateAsync('t')}>
-                    {mutation.isLoading ? 'is Loading' : 'Create'}
-                </IonButton>
-
-                <IonButton> {mutation.isSuccess ? 'Successfully creation' : 'Not yet'} </IonButton>
-
                 <IonToast isOpen={mutation.isSuccess}
                           message="Click to Close"
                           icon={informationCircle}
@@ -108,5 +111,4 @@ const Tab3: React.FC = () => {
     );
 };
 
-
-export default Tab3;
+export default Posts;

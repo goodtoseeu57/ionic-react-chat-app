@@ -1,18 +1,21 @@
 import React, {useState} from 'react'
 import {
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonIcon,
-  IonItem,
-  IonModal,
-  useIonRouter
+    IonButton,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonIcon,
+    IonItem,
+    IonModal,
+    IonToast,
+    useIonAlert,
+    useIonRouter
 } from "@ionic/react";
-import {createOutline} from 'ionicons/icons';
+import {createOutline, informationCircle, trashBin} from 'ionicons/icons';
 import EditModal from './edit-modal';
+import {useDeletePost} from "./graph-ql-request";
 
 
 interface Post {
@@ -28,28 +31,45 @@ type Props = {
 
 const PostCard: React.FC<Props> = ({post}) => {
 
+    const [present] = useIonAlert();
+
+    const mutateDelete = useDeletePost()
+
     const [isOpenModal, setOpenModal] = useState(false);
     const router = useIonRouter();
     const navigateToPost = (id: string) => {
         router.push(`/post/${id}`, 'forward')
     }
 
+    const showDeletePostAlert = (id: string, title: string) => {
+        return present({
+            header: `Are you sure do you want to delete the post with title?`,
+            message: title,
+            buttons: [
+                'Cancel',
+                {text: 'Ok', handler: (d) => mutateDelete.mutateAsync(id)},
+            ],
+            onDidDismiss: (e) => console.log('did dismiss'),
+        })
+    }
+
+
     return (
         <>
             <IonCard>
                 <IonCardHeader>
-                    <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+                    <IonItem lines={'none'} className={'ion-no-padding'}>
+                        <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
+                        <IonIcon slot={'end'} color='danger' icon={trashBin}
+                                 onClick={() => showDeletePostAlert(post.id, post.title)}></IonIcon>
+                    </IonItem>
                     <IonCardTitle> {post.title} </IonCardTitle>
                 </IonCardHeader>
                 <IonCardContent>
-                    {post?.body ??
-                        `Keep close to Nature's heart... and break clear away, once in awhile,
-          and climb a mountain or spend a week in the woods. Wash your spirit clean.`
-                    }
-                    <IonItem>
-                        <IonIcon icon={createOutline} onClick={() => setOpenModal(true)}> </IonIcon>
-                        <IonIcon color='danger' icon={createOutline}>Delete</IonIcon>
-                        <IonButton onClick={() => navigateToPost(post.id)}> Read more </IonButton>
+                    {post?.body}
+                    <IonItem lines={'none'} className={'ion-no-padding'}>
+                        <IonIcon slot={'start'} icon={createOutline} onClick={() => setOpenModal(true)}> </IonIcon>
+                        <IonButton slot={'end'} onClick={() => navigateToPost(post.id)}> Read more </IonButton>
                     </IonItem>
                 </IonCardContent>
             </IonCard>
@@ -59,10 +79,23 @@ const PostCard: React.FC<Props> = ({post}) => {
                 initialBreakpoint={0.5}
                 breakpoints={[0, 0.5, 1]}
                 onDidDismiss={() => setOpenModal(false)}>
-                <IonItem>
-                    <EditModal {...post} />
-                </IonItem>
+                <EditModal {...post} />
             </IonModal>
+
+            <IonToast isOpen={mutateDelete.isSuccess}
+                      message="Click to Close"
+                      icon={informationCircle}
+                      position="top"
+                      buttons={[
+                          {
+                              text: 'Done',
+                              role: 'cancel',
+                              handler: () => {
+                                  console.log('Cancel clicked');
+                              }
+                          }
+                      ]}
+            />
         </>
     )
 }
