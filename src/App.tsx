@@ -12,7 +12,6 @@ import {
 import {IonReactRouter} from '@ionic/react-router';
 import {square} from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
-import Tab2 from './pages/Tab2';
 import Posts from './pages/Posts';
 import Post from './pages/post'
 import SelectMode from './pages/SelectMode';
@@ -50,13 +49,9 @@ const App: React.FC = () => (
                         <Route exact path="/tab1">
                             <Tab1 name='Dashboard'/>
                         </Route>
-                        <Route exact path="/tab2" component={Tab2}/>
-                        <Route path="/tab2/landing" component={SelectMode}/>
-                        <Route path="/posts">
-                            <Posts/>
-                        </Route>
+                        <Route path="/posts" component={Posts}/>
                         <Route exact path="/">
-                            <Redirect to="/tab2"/>
+                            <Redirect to="/posts"/>
                         </Route>
                         <Route exact path="/post/:id" component={Post}/>
                     </Switch>
