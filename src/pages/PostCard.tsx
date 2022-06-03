@@ -9,11 +9,13 @@ import {
     IonIcon,
     IonItem,
     IonModal,
+    IonToast,
     useIonAlert,
     useIonRouter
 } from "@ionic/react";
-import {createOutline, trashBin} from 'ionicons/icons';
+import {createOutline, informationCircle, trashBin} from 'ionicons/icons';
 import EditModal from './edit-modal';
+import {useDeletePost} from "./graph-ql-request";
 
 
 interface Post {
@@ -31,18 +33,21 @@ const PostCard: React.FC<Props> = ({post}) => {
 
     const [present] = useIonAlert();
 
+    const mutateDelete = useDeletePost()
+
     const [isOpenModal, setOpenModal] = useState(false);
     const router = useIonRouter();
     const navigateToPost = (id: string) => {
         router.push(`/post/${id}`, 'forward')
     }
 
-    const showDeletePostAlert = (id: string) => {
+    const showDeletePostAlert = (id: string, title: string) => {
         return present({
-            header: 'Are you sure do you want to delete this post?',
+            header: `Are you sure do you want to delete the post with title?`,
+            message: title,
             buttons: [
                 'Cancel',
-                {text: 'Ok', handler: (d) => console.log('ok pressed')},
+                {text: 'Ok', handler: (d) => mutateDelete.mutateAsync(id)},
             ],
             onDidDismiss: (e) => console.log('did dismiss'),
         })
@@ -56,7 +61,7 @@ const PostCard: React.FC<Props> = ({post}) => {
                     <IonItem lines={'none'} className={'ion-no-padding'}>
                         <IonCardSubtitle>Card Subtitle</IonCardSubtitle>
                         <IonIcon slot={'end'} color='danger' icon={trashBin}
-                                 onClick={() => showDeletePostAlert(post.id)}></IonIcon>
+                                 onClick={() => showDeletePostAlert(post.id, post.title)}></IonIcon>
                     </IonItem>
                     <IonCardTitle> {post.title} </IonCardTitle>
                 </IonCardHeader>
@@ -76,6 +81,21 @@ const PostCard: React.FC<Props> = ({post}) => {
                 onDidDismiss={() => setOpenModal(false)}>
                 <EditModal {...post} />
             </IonModal>
+
+            <IonToast isOpen={mutateDelete.isSuccess}
+                      message="Click to Close"
+                      icon={informationCircle}
+                      position="top"
+                      buttons={[
+                          {
+                              text: 'Done',
+                              role: 'cancel',
+                              handler: () => {
+                                  console.log('Cancel clicked');
+                              }
+                          }
+                      ]}
+            />
         </>
     )
 }

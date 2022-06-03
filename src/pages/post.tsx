@@ -21,7 +21,7 @@ const Post = () => {
                 <>
                     <IonToolbar>
                         <IonButtons slot="start">
-                            <IonButton onClick={goBack}>
+                            <IonButton style={{'--padding-start': '16px'}} onClick={goBack}>
                                 <IonIcon slot="icon-only" ios={arrowBack} md={arrowBack}/>
                             </IonButton>
                         </IonButtons>

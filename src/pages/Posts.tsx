@@ -47,6 +47,8 @@ const Posts: React.FC = () => {
         setShowModal(true);
     }
 
+    const triggerMutation = () => mutation.mutateAsync('title-example');
+
     const mutation = useCreatePost();
 
     return (
@@ -61,7 +63,7 @@ const Posts: React.FC = () => {
                     <IonIcon icon={add}/>
                 </IonFabButton>
                 <IonFabList side={'start'}>
-                    <IonButton onClick={() => mutation.mutateAsync('title-example')}>
+                    <IonButton onClick={() => setShowModal(true)}>
                         {mutation.isLoading ? 'is Loading' : 'Create'}
                     </IonButton>
                 </IonFabList>
