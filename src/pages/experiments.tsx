@@ -1,29 +1,15 @@
-import {
-    IonButtons,
-    IonCheckbox,
-    IonContent,
-    IonHeader,
-    IonIcon,
-    IonItem,
-    IonLabel,
-    IonList,
-    IonPage,
-    IonTitle,
-    IonToolbar
-} from '@ionic/react';
-import './Tab1.css';
+import {IonButtons, IonContent, IonHeader, IonIcon, IonList, IonPage, IonTitle, IonToolbar} from '@ionic/react';
 import {useState} from "react";
 import {accessibility, ellipse} from 'ionicons/icons';
 import Counter from '../experiments/reducer';
 import Review from './starreview';
 import {ThemeContext} from '..';
 
-
 interface ContainerProps {
     name: string;
 }
 
-const Tab1: React.FC<ContainerProps> = ({name}) => {
+const Experiments: React.FC<ContainerProps> = ({name}) => {
     const [background, setBackground] = useState('white')
 
     return (
@@ -51,20 +37,10 @@ const Tab1: React.FC<ContainerProps> = ({name}) => {
                             <IonTitle size="large">Tab 123</IonTitle>
                         </IonToolbar>
                     </IonHeader>
-                    <IonList
-                        style={{height: '50vh', display: 'flex', justifyContent: 'center', flexDirection: 'column'}}>
-                        {[1, 2].map(d =>
-                            <IonItem key={d}>
-                                <IonLabel style={d % 2 === 0 ? {opacity: 0.3} : {}}>{d}</IonLabel>
-                                <IonCheckbox color={background === 'black' ? 'light' : 'dark'}
-                                             checked={true}></IonCheckbox>
-                            </IonItem>
-                        )}
-                    </IonList>
 
                     <ThemeContext.Consumer>
                         {darktheme => {
-                            return <div> hihhi {darktheme.color} </div>
+                            return <div> {darktheme.color} </div>
                         }}
                     </ThemeContext.Consumer>
                     <IonList>
@@ -77,4 +53,4 @@ const Tab1: React.FC<ContainerProps> = ({name}) => {
     );
 };
 
-export default Tab1;
+export default Experiments;
