@@ -56,12 +56,18 @@ export interface CreatePostInput {
     body: string
 }
 
+export interface UpdatePostInput {
+    id?: string,
+    body: string,
+    title: string
+}
+
 export const useCreatePost = () => {
-    return useMutation(async (title: any) => {
+    return useMutation(async (inputs: CreatePostInput) => {
             const variables = {
                 input: {
-                    title: title,
-                    body: "Some interesting content."
+                    title: inputs.title,
+                    body: inputs.body
                 }
             };
             const {createPost} = await request(endpoint,
@@ -77,15 +83,36 @@ export const useCreatePost = () => {
     )
 }
 
+export const useUpdatePost = () => {
+    return useMutation(async (inputs: UpdatePostInput) => {
+            const variables =
+                {
+                    id: inputs.id,
+                    input: {
+                        body: inputs.body
+                    }
+                }
+            const {updatePost} = await request(endpoint,
+                UPDATE_POST, variables
+            )
+            console.log(updatePost)
+            return updatePost;
+        },
+        {
+            onSuccess: () => console.log(`successfully updated`),
+            onError: () => console.log('err'),
+        },
+    )
+}
+
 export const useDeletePost = () => {
-    return useMutation(async (id: any) => {
+    return useMutation(async (id: string) => {
             const variables = {
                 id: id
             };
             const {deletePost} = await request(endpoint,
                 DELETE_POST, variables
             )
-            console.log(deletePost)
             return deletePost;
         },
         {
@@ -114,6 +141,17 @@ const CREATE_POST = gql`
   }
 `;
 
+const UPDATE_POST = gql`mutation (
+      $id: ID!,
+      $input: UpdatePostInput!
+    ) {
+      updatePost(id: $id, input: $input) {
+        id
+        body
+      }
+    }`
+;
+
 export function addPostGraphQL() {
     const variables = {
         input: {
@@ -123,9 +161,3 @@ export function addPostGraphQL() {
     };
     return request(endpoint, CREATE_POST, variables);
 }
-
-
-export const updatePost = (params: { queryKey: { postId: string, body: any } }) => {
-
-}
-

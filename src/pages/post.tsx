@@ -10,9 +10,7 @@ import {arrowBack} from 'ionicons/icons';
 const Post = () => {
     const {id} = useParams<{ id: string }>();
     const {data, isLoading, error} = usePost({queryKey: {postId: id}})
-
     const router = useIonRouter()
-
     const goBack = () => router.goBack()
 
     return (

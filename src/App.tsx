@@ -11,7 +11,7 @@ import {
 } from '@ionic/react';
 import {IonReactRouter} from '@ionic/react-router';
 import {square} from 'ionicons/icons';
-import Tab1 from './pages/Tab1';
+import Experiments from './pages/experiments';
 import Posts from './pages/Posts';
 import Post from './pages/post'
 import SelectMode from './pages/SelectMode';
@@ -34,6 +34,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import NewPost from "./pages/NewPost";
 
 setupIonicReact();
 
@@ -47,12 +48,13 @@ const App: React.FC = () => (
                 <IonRouterOutlet>
                     <Switch>
                         <Route exact path="/tab1">
-                            <Tab1 name='Dashboard'/>
+                            <Experiments name='Dashboard'/>
                         </Route>
                         <Route path="/posts" component={Posts}/>
                         <Route exact path="/">
                             <Redirect to="/posts"/>
                         </Route>
+                        <Route exact path="/new-post" component={NewPost}/>
                         <Route exact path="/post/:id" component={Post}/>
                     </Switch>
                 </IonRouterOutlet>

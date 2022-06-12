@@ -16,13 +16,8 @@ import {
 import {createOutline, informationCircle, trashBin} from 'ionicons/icons';
 import EditModal from './edit-modal';
 import {useDeletePost} from "./graph-ql-request";
+import {Post} from "../Interfaces/PostInterface";
 
-
-interface Post {
-    id: string,
-    title: string,
-    body?: string
-}
 
 type Props = {
     post: Post,
@@ -32,7 +27,6 @@ type Props = {
 const PostCard: React.FC<Props> = ({post}) => {
 
     const [present] = useIonAlert();
-
     const mutateDelete = useDeletePost()
 
     const [isOpenModal, setOpenModal] = useState(false);
@@ -52,7 +46,6 @@ const PostCard: React.FC<Props> = ({post}) => {
             onDidDismiss: (e) => console.log('did dismiss'),
         })
     }
-
 
     return (
         <>
