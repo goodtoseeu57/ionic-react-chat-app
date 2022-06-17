@@ -151,13 +151,3 @@ const UPDATE_POST = gql`mutation (
       }
     }`
 ;
-
-export function addPostGraphQL() {
-    const variables = {
-        input: {
-            title: "A Very Captivating Post Titlea",
-            body: "Some interesting content."
-        }
-    };
-    return request(endpoint, CREATE_POST, variables);
-}
