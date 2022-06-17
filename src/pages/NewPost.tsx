@@ -1,7 +1,7 @@
-import {IonButton, IonInput, IonItem, IonLabel, IonToast, IonToolbar} from '@ionic/react';
+import {IonButton, IonInput, IonItem, IonLabel, IonNote, IonToast, IonToolbar} from '@ionic/react';
 import React from 'react';
 import {useForm} from "react-hook-form";
-import {CreatePostInput, useCreatePost} from "./graph-ql-request";
+import {CreatePostInput, useCreatePost} from "../hooks/graph-ql-request";
 import {informationCircle} from "ionicons/icons";
 
 const NewPost: React.FC = (props) => {
@@ -24,15 +24,15 @@ const NewPost: React.FC = (props) => {
             </IonToolbar>
             <IonItem className="ion-padding">
                 <IonLabel position={'floating'}>Name of the project</IonLabel>
-                <IonInput {...register('title')} ></IonInput>
+                <IonInput {...register('title', {required: true})} ></IonInput>
+                <IonNote color={'danger'}>{errors.title && <span>this field is required</span>}</IonNote>
             </IonItem>
 
             <IonItem className="ion-padding">
                 <IonLabel position={'floating'}>Description of the project</IonLabel>
                 <IonInput {...register('body', {required: true})}  ></IonInput>
+                <IonNote>{errors.body && <span>this field is required</span>}</IonNote>
             </IonItem>
-
-            {errors.body && <span>this field is required</span>}
 
             <IonToast isOpen={mutation.isSuccess}
                       message="Click to Close"
