@@ -2,7 +2,7 @@ import React from 'react';
 import {renderWithClient} from "./utils";
 // import * as graphqlrequest from './graph-ql-request';
 import {QueryClient, QueryClientProvider} from 'react-query';
-import {usePosts} from './graph-ql-request';
+import {usePosts} from '../hooks/graph-ql-request';
 import Posts from "./Posts";
 
 const useQueryData = [

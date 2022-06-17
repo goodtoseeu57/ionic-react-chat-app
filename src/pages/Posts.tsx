@@ -11,9 +11,9 @@ import {
     IonToolbar,
     useIonRouter
 } from '@ionic/react';
-import {usePosts} from "./graph-ql-request";
+import {usePosts} from "../hooks/graph-ql-request";
 import {useRef, useState} from "react";
-import useOnScreen from "./useOnScreen";
+import useOnScreen from "../hooks/useOnScreen";
 import PostCard from "./PostCard";
 import Loading from "./loading";
 import {add} from 'ionicons/icons';
@@ -27,7 +27,7 @@ const Posts: React.FC = () => {
     const isOnScreen = useOnScreen(lastElementRef);
     const [showModal, setShowModal] = useState(false);
     const router = useIonRouter();
-    
+
     const navigateToNewPost = () => {
         router.push('new-post')
     }

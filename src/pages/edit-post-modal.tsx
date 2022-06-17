@@ -1,7 +1,7 @@
 import {useForm} from "react-hook-form";
 import {IonButton, IonInput, IonItem, IonLabel, IonTitle, IonToolbar} from "@ionic/react";
+import {useUpdatePost} from "../hooks/graph-ql-request";
 import {Post} from "../Interfaces/PostInterface";
-import {useUpdatePost} from "./graph-ql-request";
 
 interface EditPost {
     title: string,
@@ -9,7 +9,7 @@ interface EditPost {
     id?: string
 }
 
-const EditModal: React.FC<Post> = (props) => {
+const EditPostModal: React.FC<Post> = (props) => {
     const {title, body, id} = props;
     const {setValue, setFocus, handleSubmit, register} = useForm<EditPost>()
     const updateMutation = useUpdatePost()
@@ -43,4 +43,4 @@ const EditModal: React.FC<Post> = (props) => {
     );
 };
 
-export default EditModal;
+export default EditPostModal;

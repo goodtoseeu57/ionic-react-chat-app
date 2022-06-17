@@ -1,7 +1,7 @@
 import {IonButton, IonButtons, IonIcon, IonToolbar, useIonRouter} from '@ionic/react';
 import React from 'react';
 import {useParams} from 'react-router'
-import {usePost} from "./graph-ql-request";
+import {usePost} from "../hooks/graph-ql-request";
 import Loading from './loading';
 import PostCard from "./PostCard";
 import {arrowBack} from 'ionicons/icons';

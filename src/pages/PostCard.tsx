@@ -14,8 +14,8 @@ import {
     useIonRouter
 } from "@ionic/react";
 import {createOutline, informationCircle, trashBin} from 'ionicons/icons';
-import EditModal from './edit-modal';
-import {useDeletePost} from "./graph-ql-request";
+import EditPostModal from './edit-post-modal';
+import {useDeletePost} from "../hooks/graph-ql-request";
 import {Post} from "../Interfaces/PostInterface";
 
 
@@ -27,9 +27,9 @@ type Props = {
 const PostCard: React.FC<Props> = ({post}) => {
 
     const [present] = useIonAlert();
-    const mutateDelete = useDeletePost()
-
     const [isOpenModal, setOpenModal] = useState(false);
+    const mutateDelete = useDeletePost();
+
     const router = useIonRouter();
     const navigateToPost = (id: string) => {
         router.push(`/post/${id}`, 'forward')
@@ -72,7 +72,7 @@ const PostCard: React.FC<Props> = ({post}) => {
                 initialBreakpoint={0.5}
                 breakpoints={[0, 0.5, 1]}
                 onDidDismiss={() => setOpenModal(false)}>
-                <EditModal {...post} />
+                <EditPostModal {...post} />
             </IonModal>
 
             <IonToast isOpen={mutateDelete.isSuccess}
