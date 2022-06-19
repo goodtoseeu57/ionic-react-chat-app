@@ -1,10 +1,10 @@
 import {IonButton, IonButtons, IonIcon, IonToolbar, useIonRouter} from '@ionic/react';
 import React from 'react';
 import {useParams} from 'react-router'
-import {usePost} from "../hooks/graph-ql-request";
 import Loading from './loading';
 import PostCard from "./PostCard";
 import {arrowBack} from 'ionicons/icons';
+import {usePost} from "../hooks/graph-ql-request";
 
 
 const Post = () => {
@@ -19,7 +19,7 @@ const Post = () => {
                 <>
                     <IonToolbar>
                         <IonButtons slot="start">
-                            <IonButton style={{'--padding-start': '16px'}} onClick={goBack}>
+                            <IonButton className={'ionButton'} onClick={goBack}>
                                 <IonIcon slot="icon-only" ios={arrowBack} md={arrowBack}/>
                             </IonButton>
                         </IonButtons>
