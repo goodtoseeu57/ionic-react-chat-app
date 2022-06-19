@@ -35,6 +35,7 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import NewPost from "./pages/NewPost";
+import LandingIntro from "./pages/LandingIntro";
 
 setupIonicReact();
 
@@ -56,9 +57,14 @@ const App: React.FC = () => (
                         </Route>
                         <Route exact path="/new-post" component={NewPost}/>
                         <Route exact path="/post/:id" component={Post}/>
+                        <Route exact path={'/intro'} component={LandingIntro}/>
                     </Switch>
                 </IonRouterOutlet>
                 <IonTabBar slot="bottom">
+                    <IonTabButton tab={'into'} href="/intro">
+                        <IonIcon icon={square}/>
+                        <IonLabel>Intro</IonLabel>
+                    </IonTabButton>
                     <IonTabButton tab="posts" href="/posts">
                         <IonIcon icon={square}/>
                         <IonLabel>Posts</IonLabel>

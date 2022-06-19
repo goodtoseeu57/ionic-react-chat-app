@@ -1,8 +1,8 @@
 import {IonButton, IonInput, IonItem, IonLabel, IonNote, IonToast, IonToolbar} from '@ionic/react';
 import React from 'react';
 import {useForm} from "react-hook-form";
-import {CreatePostInput, useCreatePost} from "../hooks/graph-ql-request";
 import {informationCircle} from "ionicons/icons";
+import {CreatePostInput, useCreatePost} from "../hooks/graph-ql-request";
 
 const NewPost: React.FC = (props) => {
 
