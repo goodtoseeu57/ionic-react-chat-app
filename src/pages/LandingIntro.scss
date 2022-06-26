@@ -12,3 +12,18 @@
   width: 100%;
   background: burlywood;
 }
+
+.test {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+
+  .option {
+    border: 1px solid black;
+
+    &.selected {
+      border: 1px solid red;
+    }
+  }
+}
