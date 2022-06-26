@@ -1,7 +1,8 @@
 import {useForm} from "react-hook-form";
-import {IonButton, IonInput, IonItem, IonLabel, IonTitle, IonToolbar} from "@ionic/react";
+import {IonButton, IonInput, IonItem, IonLabel, IonTitle, IonToast, IonToolbar} from "@ionic/react";
 import {useUpdatePost} from "../hooks/graph-ql-request";
 import {Post} from "../Interfaces/PostInterface";
+import {ComponentProps} from "react";
 
 interface EditPost {
     title: string,
@@ -16,12 +17,18 @@ const EditPostModal: React.FC<Post> = (props) => {
     const onSubmit = async (data: EditPost) => {
         data.id = id
         await updateMutation.mutateAsync(data)
-        console.log(data)
     }
     if (body && title) {
         setValue('title', title)
         setValue('body', body)
     }
+
+    const ionToastPros: ComponentProps<typeof IonToast> = {
+        isOpen: updateMutation.isSuccess,
+        message: 'Post has been updated successfully',
+        position: 'top'
+    }
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -39,6 +46,7 @@ const EditPostModal: React.FC<Post> = (props) => {
                 <IonInput {...register('body')} ></IonInput>
             </IonItem>
             <IonButton className={'ion-padding'} expand={'block'} type={"submit"}>Confirm</IonButton>
+            <IonToast {...ionToastPros} />
         </form>
     );
 };
