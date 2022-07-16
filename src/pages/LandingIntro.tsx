@@ -1,21 +1,30 @@
-import React, {useState} from "react";
+import React from "react";
 import './LandingIntro.scss'
-import {IonList} from "@ionic/react";
+import {CreateAnimation, IonButton, IonCard, IonCardContent, IonContent, IonItem} from "@ionic/react";
 
 const LandingIntro = () => {
-    const [value, setValue] = useState<number>()
-
-    const values = [{id: 1, name: 'chris'}, {id: 2, name: 'chris2'}]
-
-    console.log(values.some(v => v.id === value)) // this the source
     return (
-
-        <IonList className={'test ion-padding'}>
-            {values.map(v => (
-                <div className={`option ${v.id === value ? 'selected' : 'not-selected'}`} key={v.id}
-                     onClick={() => setValue(v.id)}> {v.name} </div>
-            ))}
-        </IonList>
+        <IonContent>
+            <CreateAnimation
+                duration={1000}
+                fromTo={{
+                    property: 'transform',
+                    fromValue: 'translateY(-200px) rotate(0)',
+                    toValue: `translateY(200px) rotate(0)`,
+                }}
+                easing="ease-out"
+                play={true}
+            >
+                <IonCard>
+                    <IonCardContent>
+                        Welcome to CRUD example with Ionic-React react query and graph ql
+                    </IonCardContent>
+                    <IonItem>
+                        <IonButton> Go to Implementation </IonButton>
+                    </IonItem>
+                </IonCard>
+            </CreateAnimation>
+        </IonContent>
     )
 }
 

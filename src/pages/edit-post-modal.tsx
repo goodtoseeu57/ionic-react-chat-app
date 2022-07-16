@@ -2,7 +2,7 @@ import {useForm} from "react-hook-form";
 import {IonButton, IonInput, IonItem, IonLabel, IonTitle, IonToast, IonToolbar} from "@ionic/react";
 import {useUpdatePost} from "../hooks/graph-ql-request";
 import {Post} from "../Interfaces/PostInterface";
-import {ComponentProps} from "react";
+import React, {ComponentProps} from "react";
 
 interface EditPost {
     title: string,
@@ -12,7 +12,7 @@ interface EditPost {
 
 const EditPostModal: React.FC<Post> = (props) => {
     const {title, body, id} = props;
-    const {setValue, setFocus, handleSubmit, register} = useForm<EditPost>()
+    const {setValue, handleSubmit, register} = useForm<EditPost>()
     const updateMutation = useUpdatePost()
     const onSubmit = async (data: EditPost) => {
         data.id = id
@@ -28,8 +28,7 @@ const EditPostModal: React.FC<Post> = (props) => {
         message: 'Post has been updated successfully',
         position: 'top'
     }
-
-
+    
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <IonToolbar mode={'ios'}>
