@@ -20,7 +20,7 @@ const LandingIntro = () => {
                         Welcome to CRUD example with Ionic-React react query and graph ql
                     </IonCardContent>
                     <IonItem>
-                        <IonButton> Go to Implementation </IonButton>
+                        <IonButton routerLink={'/posts'}> Go to posts </IonButton>
                     </IonItem>
                 </IonCard>
             </CreateAnimation>
