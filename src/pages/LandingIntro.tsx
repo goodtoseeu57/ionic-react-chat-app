@@ -1,8 +1,12 @@
-import React from "react";
+import React, {useContext} from "react";
 import './LandingIntro.scss'
 import {CreateAnimation, IonButton, IonCard, IonCardContent, IonContent, IonItem} from "@ionic/react";
+import {ThemeContext} from "./useTheme";
 
 const LandingIntro = () => {
+
+    const theme = useContext(ThemeContext)
+    console.log(theme)
     return (
         <IonContent>
             <CreateAnimation
