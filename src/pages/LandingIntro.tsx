@@ -1,14 +1,38 @@
 import React, {useContext} from "react";
 import './LandingIntro.scss'
-import {CreateAnimation, IonButton, IonCard, IonCardContent, IonContent, IonItem} from "@ionic/react";
+import {
+    CreateAnimation,
+    IonButton,
+    IonCard,
+    IonCardContent,
+    IonContent,
+    IonIcon,
+    IonItem,
+    IonLabel,
+    IonToggle
+} from "@ionic/react";
 import {ThemeContext} from "./useTheme";
+import {moon} from "ionicons/icons";
 
 const LandingIntro = () => {
+    const {theme, switchTheme} = useContext(ThemeContext)
 
-    const theme = useContext(ThemeContext)
-    console.log(theme)
+    const toggleDarkModeHandler = () => {
+        document.body.classList.toggle('dark');
+    }
+
     return (
-        <IonContent>
+        <IonContent style={{'--ion-background-color': theme}}>
+            <IonItem lines={'none'}>
+                <IonIcon slot="start" icon={moon}/>
+                <IonLabel>Dark Mode</IonLabel>
+                <IonToggle
+                    slot="end"
+                    name="darkMode"
+                    onIonChange={() => toggleDarkModeHandler()}
+                />
+            </IonItem>
+            {/*<IonIcon icon={contrastOutline} onClick={() => switchTheme(theme)}></IonIcon>*/}
             <CreateAnimation
                 duration={1000}
                 fromTo={{

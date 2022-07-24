@@ -45,7 +45,7 @@ const App: React.FC = () => (
             <Route exact path="/tabs">
                 <SelectMode/>
             </Route>
-            <IonTabs>
+            <IonTabs className={'test'}>
                 <IonRouterOutlet>
                     <Switch>
                         <Route exact path="/tab1">

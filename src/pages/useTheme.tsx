@@ -1,21 +1,26 @@
-import {createContext, useMemo, useState} from "react";
+import {createContext, ReactNode, useCallback, useMemo, useState} from "react";
 
-export const ThemeContext = createContext<any | null>(null)
+type CreateContext = {
+    theme: string,
+    switchTheme: (theme: string) => void
+}
+
+export const ThemeContext = createContext<CreateContext>({
+    theme: 'white',
+    switchTheme: (theme: string) => null,
+})
 
 
-const ThemeProvider: React.FC<any> = ({children}) => {
-    const [theme, setTheme] = useState<null | string>(null)
+const ThemeProvider: React.FC<ReactNode> = ({children}) => {
+    const [theme, setTheme] = useState<string>('white')
 
 
-    const whiteTheme = () => {
-        setTheme('white')
-    }
+    const switchTheme = useCallback((theme: string) => {
+        setTheme(theme === 'white' ? 'black' : 'white')
+        document.body.classList.toggle('dark');
+    }, [theme])
 
-    const blackTheme = () => {
-        setTheme('black')
-    }
-
-    const providerValue = useMemo(() => ({theme, whiteTheme, blackTheme}), [theme, whiteTheme, blackTheme])
+    const providerValue = useMemo(() => ({theme, switchTheme}), [theme, switchTheme])
     return <ThemeContext.Provider value={providerValue}>{children}</ThemeContext.Provider>
 }
 
