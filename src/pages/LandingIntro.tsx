@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import {useContext} from "react";
 import './LandingIntro.scss'
 import {
     CreateAnimation,
@@ -15,7 +15,7 @@ import {ThemeContext} from "./useTheme";
 import {moon} from "ionicons/icons";
 
 const LandingIntro = () => {
-    const {theme, switchTheme} = useContext(ThemeContext)
+    const {theme}= useContext(ThemeContext)
 
     const toggleDarkModeHandler = () => {
         document.body.classList.toggle('dark');
