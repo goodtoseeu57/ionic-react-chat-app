@@ -1,31 +1,22 @@
-import React, { useContext, createContext } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
-import { QueryClientProvider, QueryClient } from "react-query";
+import {QueryClient, QueryClientProvider} from "react-query";
+import ThemeProvider from './pages/useTheme';
 
 const queryClient = new QueryClient();
 
-const blackTheme = {
-  color: 'black'
-}
-
-export const ThemeContext = createContext(blackTheme);
-
-const whiteTheme = {
-  color: 'white'
-}
-
 ReactDOM.render(
-  <React.StrictMode>
-    <ThemeContext.Provider value={blackTheme}>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    </ThemeContext.Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+    <React.StrictMode>
+        <ThemeProvider>
+            <QueryClientProvider client={queryClient}>
+                <App/>
+            </QueryClientProvider>
+        </ThemeProvider>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change
